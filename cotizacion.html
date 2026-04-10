@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta Arime Software SAS - 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    screens: { xs: '420px' },
+                },
+            },
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- Variables --- */
+        :root {
+            --bg-deep: #0f172a;
+            --accent-sky: #38bdf8;
+            --accent-indigo: #818cf8;
+            --accent-purple: #c084fc;
+        }
+
+        /* --- Base --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-deep);
+            color: #f8fafc;
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img, video { max-width: 100%; height: auto; }
+
+        /* --- Componentes --- */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: clamp(1rem, 2.5vw, 1.5rem);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-sky), var(--accent-indigo), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .bento-item {
+            transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            height: 100%;
+        }
+
+        .aurora {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.1) 0%, transparent 35%),
+                radial-gradient(circle at 85% 85%, rgba(192, 132, 252, 0.1) 0%, transparent 35%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-x: contain;
+        }
+
+        .step-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: var(--accent-sky);
+        }
+
+        /* --- Impresión / PDF (mismo tema oscuro que en pantalla) --- */
+        @media print {
+            @page { margin: 16mm; }
+            html {
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+            body {
+                background: var(--bg-deep) !important;
+                color: #f8fafc !important;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+            .aurora,
+            .no-print { display: none !important; }
+            .glass {
+                background: rgba(30, 41, 59, 0.92) !important;
+                border: 1px solid rgba(255, 255, 255, 0.12) !important;
+                color: #f8fafc !important;
+                backdrop-filter: none !important;
+                box-shadow: none !important;
+            }
+            .gradient-text {
+                background: linear-gradient(135deg, var(--accent-sky), var(--accent-indigo), var(--accent-purple));
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .text-slate-400 { color: #94a3b8 !important; }
+            .text-slate-500 { color: #64748b !important; }
+            .text-slate-300 { color: #cbd5e1 !important; }
+            section { page-break-inside: avoid; }
+            footer {
+                border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+            }
+            main {
+                padding: 0 !important;
+                max-width: 100% !important;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-sky-500/30 min-h-screen pb-[max(0.5rem,env(safe-area-inset-bottom))]">
+    <div class="aurora" aria-hidden="true"></div>
+
+    <main class="max-w-7xl mx-auto w-full min-w-0 px-3 pt-[max(0.75rem,env(safe-area-inset-top))] pb-8 sm:px-6 sm:py-10 md:px-8 md:py-14 lg:py-16 xl:py-20 pl-[max(0.75rem,env(safe-area-inset-left))] pr-[max(0.75rem,env(safe-area-inset-right))]">
+
+        <!-- ========== CABECERA ========== -->
+        <header class="flex flex-col lg:flex-row lg:justify-between items-start gap-8 sm:gap-10 lg:gap-12 mb-12 sm:mb-14 md:mb-16">
+            <div class="w-full lg:max-w-3xl min-w-0">
+                <div class="inline-flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-4 sm:py-2 glass mb-6 sm:mb-8 max-w-full">
+                    <span class="text-[9px] xs:text-[10px] md:text-xs font-bold uppercase tracking-widest text-sky-400 break-words">Arime Software SAS | Ref: 2026-BIMODAL</span>
+                </div>
+                <h1 class="text-[1.65rem] xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 sm:mb-6 leading-tight">
+                    Propuesta <span class="gradient-text">Técnica &amp; Económica</span>
+                </h1>
+                <p class="text-slate-400 text-sm sm:text-base md:text-lg leading-relaxed">
+                    Plataforma Web Profesional para <strong>Psicología Clínica</strong> y <strong>Consultoría SST</strong>.
+                </p>
+            </div>
+
+            <div class="w-full sm:max-w-md lg:w-80 lg:max-w-none shrink-0 glass p-4 sm:p-6 md:p-8 flex flex-col gap-4 sm:gap-6">
+                <div>
+                    <label class="step-label mb-1 block">Consultor Técnico</label>
+                    <p class="text-base sm:text-lg font-bold">Juan Camilo Mesa</p>
+                </div>
+                <div class="h-px bg-white/10"></div>
+                <div>
+                    <label class="step-label mb-1 block">Cliente</label>
+                    <p class="text-white font-medium">Especialista Psicología / SST</p>
+                </div>
+                <div class="h-px bg-white/10"></div>
+                <div>
+                    <label class="step-label mb-1 block">Fecha</label>
+                    <p class="text-white font-medium">10 de abril de 2026</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- ========== 1. RESUMEN EJECUTIVO ========== -->
+        <section class="mb-8 sm:mb-10 md:mb-12">
+            <div class="glass p-4 sm:p-6 md:p-8 bento-item">
+                <h2 class="text-lg sm:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3 flex-wrap">
+                    <span class="text-sky-500 shrink-0">01.</span>
+                    <span>Resumen Ejecutivo</span>
+                </h2>
+                <p class="text-slate-300 leading-relaxed text-sm md:text-base">
+                    Creación de un ecosistema digital de alta gama diseñado para cubrir el perfil dual de la profesional:
+                    <strong>Consulta Psicológica Clínica</strong> y <strong>Asesoría en Seguridad y Salud en el Trabajo (SST)</strong>.
+                    El objetivo es proporcionar una herramienta que centralice ambos servicios, permitiendo a pacientes y empresas reservar y pagar asesorías de forma fluida y profesional.
+                </p>
+            </div>
+        </section>
+
+        <!-- ========== 2. FILOSOFÍA ========== -->
+        <section class="mb-8 sm:mb-10 md:mb-12">
+            <h2 class="text-lg sm:text-xl font-bold mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3 flex-wrap">
+                <span class="text-indigo-500 shrink-0">02.</span>
+                <span>Filosofía &quot;Arime Fresh&quot;</span>
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+                <div class="glass p-4 sm:p-6 border-sky-500/20 min-w-0">
+                    <h3 class="font-bold text-sky-400 mb-2 text-sm sm:text-base">Estética Moderna</h3>
+                    <p class="text-[11px] sm:text-xs text-slate-400">Glassmorphism, sombras orgánicas y micro-interacciones. Cero diseños estáticos.</p>
+                </div>
+                <div class="glass p-4 sm:p-6 border-indigo-500/20 min-w-0">
+                    <h3 class="font-bold text-indigo-400 mb-2 text-sm sm:text-base">Rendimiento Extremo</h3>
+                    <p class="text-[11px] sm:text-xs text-slate-400">Stack React + Vite. Tiempo de carga optimizado inferior a 2 segundos.</p>
+                </div>
+                <div class="glass p-4 sm:p-6 border-purple-500/20 min-w-0 sm:col-span-2 md:col-span-1">
+                    <h3 class="font-bold text-purple-400 mb-2 text-sm sm:text-base">Enfoque Agilidad</h3>
+                    <p class="text-[11px] sm:text-xs text-slate-400">Sistema &quot;Stateless&quot; sin registros obligatorios para agendamiento veloz.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 3. ALCANCE TÉCNICO ========== -->
+        <section class="mb-8 sm:mb-10 md:mb-12">
+            <h2 class="text-lg sm:text-xl font-bold mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3 flex-wrap">
+                <span class="text-emerald-500 shrink-0">03.</span>
+                <span>Alcance de los Módulos Técnicos</span>
+            </h2>
+            <div class="space-y-3 sm:space-y-4">
+                <div class="glass p-4 sm:p-6 md:p-8 min-w-0">
+                    <h3 class="text-base sm:text-lg font-bold text-emerald-400 mb-3 sm:mb-4">Motor de Agendamiento Dual (JS Pure Logic)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 text-xs sm:text-sm text-slate-400">
+                        <ul class="list-disc pl-4 sm:pl-5 space-y-2 min-w-0">
+                            <li>Generación dinámica de espacios para Clínica y SST.</li>
+                            <li>Sincronización en tiempo real con <strong>Doctoralia</strong>.</li>
+                        </ul>
+                        <ul class="list-disc pl-4 sm:pl-5 space-y-2 min-w-0">
+                            <li>Gestión de horarios específicos para empresas.</li>
+                            <li>Validación inteligente de disponibilidad y descansos.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                    <div class="glass p-4 sm:p-6 border-blue-500/20 min-w-0">
+                        <h3 class="font-bold text-blue-400 mb-2 sm:mb-3 text-sm sm:text-base">Integración Wompi</h3>
+                        <p class="text-[11px] sm:text-xs text-slate-400 mb-3 sm:mb-4">Recaudo inmediato vía PSE, Nequi, Bancolombia y Tarjetas.</p>
+                        <div class="bg-blue-500/10 p-3 rounded-xl border border-blue-500/20">
+                            <p class="text-[10px] text-blue-400 font-bold uppercase">Automatización</p>
+                            <p class="text-[11px] text-slate-300">La cita se bloquea solo tras verificación de pago exitosa.</p>
+                        </div>
+                    </div>
+                    <div class="glass p-4 sm:p-6 border-sky-500/20 min-w-0">
+                        <h3 class="font-bold text-sky-400 mb-2 sm:mb-3 text-sm sm:text-base">Interfaz Bimodal</h3>
+                        <p class="text-[11px] sm:text-xs text-slate-400 mb-2"><strong>Psicología:</strong> Enfoque clínico y bienestar emocional.</p>
+                        <p class="text-[11px] sm:text-xs text-slate-400 mb-2"><strong>SST:</strong> Portafolio empresarial y asesorías técnicas.</p>
+                        <p class="text-[11px] sm:text-xs text-slate-500 italic mt-3">Optimización SEO para ambos nichos integrada.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 4. INVERSIÓN ========== -->
+        <section class="mb-8 sm:mb-10 md:mb-12">
+            <h2 class="text-lg sm:text-xl font-bold mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3 flex-wrap">
+                <span class="text-white shrink-0">04.</span>
+                <span>Desglose de Inversión</span>
+            </h2>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
+                <div class="lg:col-span-8 glass p-4 sm:p-6 md:p-8 min-w-0">
+                    <h3 class="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-500 mb-4 sm:mb-6">Honorarios de Desarrollo (Pago Único)</h3>
+                    <div class="table-container">
+                        <table class="w-full min-w-[260px] text-xs sm:text-sm">
+                            <thead class="border-b border-white/10">
+                                <tr class="text-left text-slate-500">
+                                    <th class="py-2 sm:py-3 pr-2">Módulo</th>
+                                    <th class="py-2 sm:py-3 text-right whitespace-nowrap">Inversión (COP)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5">
+                                <tr>
+                                    <td class="py-3 sm:py-4 pr-2">Arquitectura UI/UX Bimodal</td>
+                                    <td class="py-3 sm:py-4 text-right font-mono whitespace-nowrap">$900.000</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 sm:py-4 pr-2">Motor de Lógica Dual</td>
+                                    <td class="py-3 sm:py-4 text-right font-mono whitespace-nowrap">$750.000</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 sm:py-4 pr-2">Ecosistema de Pagos (Wompi)</td>
+                                    <td class="py-3 sm:py-4 text-right font-mono whitespace-nowrap">$600.000</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 sm:py-4 pr-2">Despliegue y Optimización Cloud</td>
+                                    <td class="py-3 sm:py-4 text-right font-mono whitespace-nowrap">$250.000</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr class="bg-white/5 font-bold">
+                                    <td class="py-3 sm:py-4 px-2 sm:px-4 rounded-l-xl text-xs sm:text-sm">TOTAL DESARROLLO</td>
+                                    <td class="py-3 sm:py-4 px-2 sm:px-4 text-right rounded-r-xl text-sky-400 text-base sm:text-lg whitespace-nowrap">$2.500.000</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-4 glass p-4 sm:p-6 border-sky-500/30 flex flex-col justify-between min-w-0">
+                    <div>
+                        <h3 class="text-[10px] font-black uppercase text-sky-400 mb-2">Infraestructura &amp; Soporte</h3>
+                        <div class="text-xl sm:text-2xl font-bold mb-2">$250.000 <span class="text-xs font-normal text-slate-500">/ MES</span></div>
+                        <ul class="text-[11px] text-slate-400 space-y-2 mt-4">
+                            <li>• Dominio (.com / .co)</li>
+                            <li>• Hosting Alta Velocidad (React Optimized)</li>
+                            <li>• Certificado SSL (Seguridad)</li>
+                            <li>• Soporte Técnico Preventivo Arime</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-white/5">
+                        <p class="text-[10px] text-slate-500 leading-tight">Garantiza estabilidad, seguridad y actualizaciones mensuales.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 5. CRONOGRAMA Y PAGOS ========== -->
+        <section class="mb-8 sm:mb-10 md:mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                <div class="glass p-4 sm:p-6 md:p-8 border-indigo-500/20 min-w-0">
+                    <h3 class="font-bold mb-4 sm:mb-6 text-indigo-400 text-sm sm:text-base">Cronograma de Entrega</h3>
+                    <div class="flex items-center gap-3 sm:gap-4">
+                        <div class="text-2xl sm:text-3xl font-black text-indigo-500/30 shrink-0">21</div>
+                        <div class="text-xs sm:text-sm min-w-0">
+                            <p class="font-bold">Días Calendario</p>
+                            <p class="text-slate-500 text-[11px] sm:text-xs">A partir del pago inicial y entrega de activos.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass p-4 sm:p-6 md:p-8 border-emerald-500/20 min-w-0">
+                    <h3 class="font-bold mb-3 sm:mb-4 text-emerald-400 text-sm sm:text-base">Condiciones de Pago</h3>
+                    <div class="space-y-2 sm:space-y-3 text-xs sm:text-sm">
+                        <p class="flex flex-col xs:flex-row xs:justify-between xs:items-center gap-1">
+                            <span>Anticipo (50%)</span>
+                            <span class="font-mono font-bold tabular-nums">$1.250.000</span>
+                        </p>
+                        <p class="flex flex-col xs:flex-row xs:justify-between xs:items-center gap-1">
+                            <span>Entrega (50%)</span>
+                            <span class="font-mono font-bold tabular-nums">$1.250.000</span>
+                        </p>
+                        <div class="h-px bg-white/10 mt-2"></div>
+                        <p class="text-[10px] text-slate-500 italic">Garantía: 30 días post-lanzamiento ante cualquier ajuste de código.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== PIE ========== -->
+        <footer class="mt-12 sm:mt-16 md:mt-20 pt-8 sm:pt-10 md:pt-12 border-t border-white/10 flex flex-col items-center text-center md:flex-row md:justify-between md:items-center gap-6 sm:gap-8 print:flex-row print:justify-between print:items-end print:text-left">
+            <div class="min-w-0 print:text-left">
+                <p class="text-xl sm:text-2xl font-black gradient-text">Arime Software SAS</p>
+                <p class="text-[11px] sm:text-xs text-slate-500 mt-2">Transformación digital de alta gama.</p>
+            </div>
+            <div class="flex flex-col items-center md:items-end print:items-end print:text-right">
+                <p class="text-white font-bold text-lg sm:text-xl">Juan Camilo Mesa</p>
+                <p class="text-sky-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest">Líder de Desarrollo</p>
+                <button type="button" onclick="window.print()" class="no-print mt-4 sm:mt-6 w-full max-w-xs sm:w-auto px-6 sm:px-8 py-3 bg-sky-500 hover:bg-sky-400 text-white rounded-full text-xs font-black transition-all shadow-lg shadow-sky-500/20 [touch-action:manipulation]">
+                    EXPORTAR PROPUESTA PDF
+                </button>
+            </div>
+        </footer>
+    </main>
+</body>
+</html>
